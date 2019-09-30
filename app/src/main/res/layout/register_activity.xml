@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/biruDesain"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true" >
+
+    <View
+            android:id="@+id/view"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true" />
+
+    <ScrollView
+            android:id="@+id/ScrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="#FFF9F9"
+            android:padding="25dp" >
+
+        <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/Register_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:text="Register"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+
+            <EditText
+                    android:layout_below="@id/Register_tv"
+                    android:layout_marginTop="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:hint="Nama"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/biruDesain"
+                    android:paddingStart="15dp"
+                    android:inputType="text"
+                    android:background="@drawable/border_input_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/nama"/>
+            <EditText
+                    android:layout_below="@id/nama"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:hint="Nomor Telepon"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/biruDesain"
+                    android:paddingStart="15dp"
+                    android:inputType="number"
+                    android:background="@drawable/border_input_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/nomor_telepon"/>
+            <EditText
+                    android:layout_below="@id/nomor_telepon"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:hint="Email"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/biruDesain"
+                    android:paddingStart="15dp"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/border_input_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/email"/>
+            <EditText
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/email"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/biruDesain"
+                    android:paddingStart="15dp"
+                    android:background="@drawable/border_input_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/password"/>
+            <Spinner
+                    android:entries="@array/list_Department"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/password"
+                    android:id="@+id/department"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:textColorHint="@color/biruDesain"
+                    android:layout_centerHorizontal="true"
+                    android:paddingStart="15dp"
+                    android:background="@drawable/border_input_login"
+            >
+            </Spinner>
+
+            <Button
+                    android:id="@+id/btn_regis"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/department"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/corner2"
+                    android:text="REGISTER"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+
+            <TextView
+                    android:id="@+id/member_login_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_regis"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:text="Memeber Login?"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <ImageView
+            android:id="@+id/view_1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/ic_logo_cj" />
+
+</RelativeLayout>
