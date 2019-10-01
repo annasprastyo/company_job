@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.example.company_job.R
 import com.example.company_job.activity.MainActivity
 import com.example.company_job.adapter.DataJobAdapter
@@ -22,6 +24,8 @@ class DataCreateJobActivity: AppCompatActivity() {
     private var actionBar: ActionBar? = null
     lateinit var dbref: DatabaseReference
     internal lateinit var set: SettingApi
+    lateinit var rvJob : RecyclerView
+    lateinit var falldown : Animation
     private var DataJobAdapter: DataJobAdapter? = null
     private var rvDataJob: RecyclerView? = null
     private var list: MutableList<JobModel> = ArrayList<JobModel>()
@@ -53,6 +57,9 @@ class DataCreateJobActivity: AppCompatActivity() {
                 }
                 DataJobAdapter = DataJobAdapter(this@DataCreateJobActivity, list)
                 rvDataJob!!.adapter = DataJobAdapter
+                rvJob = findViewById(R.id.rvDataJob)
+                falldown = AnimationUtils.loadAnimation(this@DataCreateJobActivity, R.anim.item_animation_fall_down)
+                rvJob.startAnimation(falldown)
             }
 
             override fun onCancelled(p0: DatabaseError) {

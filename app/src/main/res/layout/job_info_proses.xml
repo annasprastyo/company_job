@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+                android:background="#F1EEEE"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -11,7 +12,7 @@
             android:layout_height="wrap_content">
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:background="#96F2AE"
+            android:background="@color/biruDesain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -30,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="-10dp"
             android:orientation="horizontal">
         <TextView
                 android:layout_width="match_parent"
@@ -44,14 +46,13 @@
     <LinearLayout
             android:id="@+id/content2"
             android:layout_below="@id/content"
-            android:padding="10dp"
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:background="#D8D8D8"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_marginBottom="-10dp"
+            android:background="@drawable/bg_shadow">
         <ImageView
                 android:id="@+id/id_image"
                 android:layout_weight="2"
@@ -147,11 +148,11 @@
     <LinearLayout
             android:id="@+id/content3"
             android:layout_below="@+id/content2"
-            android:background="#D8D8D8"
+            android:background="@drawable/bg_shadow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_marginBottom="-10dp">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -172,26 +173,33 @@
         />
     </LinearLayout>
     <LinearLayout
+            android:padding="15dp"
             android:id="@+id/content4"
             android:layout_below="@+id/content3"
-            android:background="#D8D8D8"
+            android:background="@drawable/bg_shadow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="-10dp"
             android:orientation="horizontal">
 
         <RelativeLayout
                 android:id="@+id/id_wait"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+            <ProgressBar
+                    android:layout_centerVertical="true"
+                    android:id="@+id/progressBar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:visibility="visible"/>
             <TextView
+                    android:layout_toRightOf="@id/progressBar1"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Sedang mencari penerima......"
-                    android:textSize="20sp"/>
+                    android:textSize="18sp"/>
         </RelativeLayout>
         <LinearLayout
                 android:padding="5dp"
@@ -247,9 +255,10 @@
             <Button
                     android:id="@+id/id_chat"
                     android:text="Chat"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:background="#1AE612"
+                    android:background="@drawable/bg_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -299,67 +308,4 @@
             android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-    <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/content_add"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#CCFFFFFF">
-
-        <LinearLayout
-                android:id="@+id/grub_add"
-                android:layout_centerVertical="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:background="#DDDDDD">
-
-            <TextView
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:textSize="25dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add Detail Job"/>
-            <TextView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Note Description"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
-            <EditText
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/et_deskripsi"
-                    android:inputType="textMultiLine"
-                    android:lines="4"
-                    android:minLines="4"
-                    android:background="#EFF2F7"
-                    android:gravity="top|left"
-                    android:maxLines="10"
-                    android:padding="5dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:scrollbars="vertical"
-                    android:hint=" Note..."
-                    android:textColor="@android:color/black"
-                    android:textSize="16dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-            />
-            <Button
-                    android:id="@+id/btn_simpan_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="30dp"
-                    android:background="@color/biruDesain"
-                    android:text="Simpan"/>
-
-        </LinearLayout>
-    </RelativeLayout>
 </RelativeLayout>

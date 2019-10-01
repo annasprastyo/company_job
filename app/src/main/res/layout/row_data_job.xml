@@ -6,11 +6,13 @@
               android:id="@+id/ll_datajob">
 
     <LinearLayout
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F1EEEE"
+            android:background="@drawable/bg_shadow"
             android:orientation="horizontal"
-            android:layout_margin="8dp">
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp">
         <LinearLayout
                 android:layout_weight="3"
                 android:layout_width="match_parent"

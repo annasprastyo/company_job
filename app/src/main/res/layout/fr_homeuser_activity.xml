@@ -32,6 +32,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:background="@drawable/bg_shadow">
+            <RelativeLayout
+                    android:id="@+id/id_tunggu"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <ProgressBar
+                        android:layout_centerVertical="true"
+                        android:id="@+id/progressBar1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:visibility="visible"/>
+                <TextView
+                        android:gravity="center"
+                        android:layout_below="@id/progressBar1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tunggu Sebentar......"
+                        android:textSize="18sp"/>
+            </RelativeLayout>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -43,7 +63,7 @@
                     android:layout_width="300dp"
                     android:layout_gravity="center"
                     android:visibility="visible"
-                    android:layout_height="2dp"
+                    android:layout_height="1dp"
                     android:background="#858484"/>
 
         <LinearLayout
@@ -75,9 +95,11 @@
                     />
                 </LinearLayout>
                 <TextView
+                        android:id="@+id/id_nama"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="13sp"
                         android:text="Nama"/>
             </LinearLayout>
             <LinearLayout
@@ -87,22 +109,30 @@
                     android:layout_weight="1">
 
                 <TextView
+                        android:id="@+id/id_department"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="13sp"
                         android:text="Departemen : IT"/>
                 <TextView
+                        android:id="@+id/id_email"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="13sp"
                         android:text="Email : email@gmail.com"/>
                 <TextView
+                        android:id="@+id/id_kontak"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="10dp"
                         android:text="Kontak : 0824521324131"/>
             </LinearLayout>
 
         </LinearLayout>
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -149,6 +179,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="Buat Pekerjaan"/>
         </LinearLayout>
 
@@ -173,6 +204,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="Terima Pekerjaan"/>
         </LinearLayout>
         <LinearLayout
@@ -195,6 +227,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="Profile"/>
         </LinearLayout>
 

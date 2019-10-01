@@ -5,10 +5,21 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.company_job.R
+import com.example.company_job.activity.PrefsHelper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fr_homeuser_activity.*
+import kotlinx.android.synthetic.main.fr_homeuser_activity.view.*
 
 class FrHomeUser: Fragment() {
+
+    lateinit var fAuth: FirebaseAuth
+    lateinit var helperPrefs: PrefsHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +32,15 @@ class FrHomeUser: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fAuth = FirebaseAuth.getInstance()
+        helperPrefs = PrefsHelper(activity!!)
+        Glide.with(view.context)
+            .load(R.drawable.avatar)
+            .into(view.avatar)
+        id_tunggu.visibility = View.VISIBLE
+        getData()
+
 
         ll_CreateJob.setOnClickListener(({
             val frcreatejob = FrCreateJob()
@@ -48,5 +68,32 @@ class FrHomeUser: Fragment() {
                 R.anim.design_bottom_sheet_slide_out
             ).replace(R.id.content, frprofile).commit()
         }))
+    }
+
+    fun getData(){
+        val dbRefUser = FirebaseDatabase.getInstance().getReference("users/${helperPrefs.getUID()}")
+        dbRefUser.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+//                Log.e("uid", helperPrefs.getUID())
+                if (p0.child("/foto").value.toString() != "null") {
+                    Glide.with(view!!.context)
+                        .load(p0.child("/foto").value.toString())
+                        .into(view!!.avatar)
+                }
+
+                view!!.id_nama.text = p0.child("/nama").value.toString()
+                view!!.id_department.text = p0.child("/department").value.toString()
+                view!!.id_kontak.text = p0.child("/phone").value.toString()
+                view!!.id_email.text = p0.child("/email").value.toString()
+
+                id_tunggu.visibility = View.GONE
+            }
+
+
+        })
     }
 }

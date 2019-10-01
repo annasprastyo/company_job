@@ -10,8 +10,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.company_job.R
@@ -25,7 +28,9 @@ import com.example.company_job.model.Friend
 import com.example.company_job.receivejob.ProsesReceiveJobActivity
 import com.example.company_job.utilities.Const
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.add_detail.view.*
 import kotlinx.android.synthetic.main.job_info_proses.*
+import kotlinx.android.synthetic.main.view_image.view.*
 
 class ProsesCreateJobActivity : AppCompatActivity(){
 
@@ -34,6 +39,8 @@ class ProsesCreateJobActivity : AppCompatActivity(){
     internal lateinit var set: SettingApi
     private var rvDetailJob: RecyclerView? = null
     lateinit var helperPrefs: PrefsHelper
+    lateinit var rvDetail : RecyclerView
+    lateinit var falldown : Animation
     private var ProsesCreateJobAdapter: ProsesCreateJobAdapter? = null
     private var actionBar: ActionBar? = null
     private var list: MutableList<DetailJobModel> = ArrayList<DetailJobModel>()
@@ -72,20 +79,31 @@ class ProsesCreateJobActivity : AppCompatActivity(){
         }
 
         add.setOnClickListener {
-            content_add.visibility = View.VISIBLE
-        }
+//            content_add.visibility = View.VISIBLE
+                //Inflate the dialog with custom view
+                val aDialogView = LayoutInflater.from(this@ProsesCreateJobActivity).inflate(R.layout.add_detail, null)
+                //AlertDialogBuilder
+                val mBuilder = AlertDialog.Builder(this@ProsesCreateJobActivity)
+                    .setView(aDialogView)
+                    .setTitle("Tambah Detail")
+                //show dialog
+                val  mAlertDialog = mBuilder.show()
 
-        content_add.setOnClickListener {
-            content_add.visibility = View.GONE
-        }
-        grub_add.setOnClickListener {
+             aDialogView.btn_simpan_detail.setOnClickListener {
+                //dismiss dialog
+
+                //get text from EditTexts of custom layout
+                var deskripsi = aDialogView.et_deskripsi.text.toString()
+                //set the input text in TextView
+                 if (deskripsi == ""){
+                     Toast.makeText(this@ProsesCreateJobActivity, "Deskripsi Harus Di isi!!", Toast.LENGTH_SHORT).show()
+                 }else{
+                addDetailJob(Id_job!!.toLong(), deskripsi)
+                     mAlertDialog.dismiss()
+                 }
+             }
 
         }
-        btn_simpan_detail.setOnClickListener {
-            addDetailJob(Id_job!!.toLong())
-        }
-
-
 
     }
 
@@ -172,6 +190,25 @@ class ProsesCreateJobActivity : AppCompatActivity(){
                         getDataReceive(p0.child("/id_user").value.toString())
                     }
                 }
+                id_image.setOnClickListener {
+                    //Inflate the dialog with custom view
+                    val mDialogView = LayoutInflater.from(this@ProsesCreateJobActivity).inflate(R.layout.view_image, null)
+                    //AlertDialogBuilder
+                    val mBuilder = AlertDialog.Builder(this@ProsesCreateJobActivity)
+                        .setView(mDialogView)
+                        .setTitle("Image")
+                    //show dialog
+                    val  mAlertDialog = mBuilder.show()
+                    //login button click of custom layout
+                    //cancel button click of custom layout
+                    Glide.with(this@ProsesCreateJobActivity)
+                        .load(p0.child("/image").value.toString())
+                        .into(mDialogView.id_view_image)
+                    mDialogView.dialogCancelBtn.setOnClickListener {
+                        //dismiss dialog
+                        mAlertDialog.dismiss()
+                    }
+                }
             }
 
         })
@@ -199,6 +236,9 @@ class ProsesCreateJobActivity : AppCompatActivity(){
                 }
                 ProsesCreateJobAdapter = ProsesCreateJobAdapter(this@ProsesCreateJobActivity, list)
                 rvDetailJob!!.adapter = ProsesCreateJobAdapter
+                rvDetail = findViewById(R.id.rvDetailJob)
+                falldown = AnimationUtils.loadAnimation(this@ProsesCreateJobActivity, R.anim.item_animation_fall_down)
+                rvDetail.startAnimation(falldown)
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -209,7 +249,7 @@ class ProsesCreateJobActivity : AppCompatActivity(){
 
     }
 
-    fun addDetailJob(Id_job : Long){
+    fun addDetailJob(Id_job : Long, deskripsi : String){
 
         dbref = FirebaseDatabase.getInstance().getReference("DataDetailJob/")
         dbref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -228,11 +268,9 @@ class ProsesCreateJobActivity : AppCompatActivity(){
                     dbref.child("/$a/id_job").setValue(Id_job!!.toLong())
                     dbref.child("/$a/id_detail_job").setValue(a)
                     dbref.child("/$a/id_user").setValue(set.readSetting(Const.PREF_MY_NAME))
-                    dbref.child("/$a/deskripsi").setValue(et_deskripsi.text.toString())
+                    dbref.child("/$a/deskripsi").setValue(deskripsi)
                     dbref.child("/$a/isdone").setValue(0)
                     Toast.makeText(this@ProsesCreateJobActivity, "Sukses!!", Toast.LENGTH_SHORT).show()
-                    et_deskripsi.setText("")
-                    content_add.visibility = View.GONE
                 }
 
             })

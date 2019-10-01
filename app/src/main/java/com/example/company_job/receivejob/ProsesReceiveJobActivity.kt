@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.example.company_job.R
 import com.example.company_job.activity.MainActivity
 import com.example.company_job.activity.PrefsHelper
@@ -21,6 +23,8 @@ class ProsesReceiveJobActivity : AppCompatActivity() {
     private var actionBar: ActionBar? = null
     lateinit var helperPrefs : PrefsHelper
     lateinit var dbref: DatabaseReference
+    lateinit var rvProses: RecyclerView
+    lateinit var falldown : Animation
     internal lateinit var set: SettingApi
     private var DataJobAdapter: DataJobAdapter? = null
     private var rvDataJob: RecyclerView? = null
@@ -50,12 +54,16 @@ class ProsesReceiveJobActivity : AppCompatActivity() {
                         addDataAll!!.getIsdone()!!.toLong().equals(0L)) {
 //                        addDataAll!!.setKey(dataSnapshot.key!!)
                         list.add(addDataAll)
-                        DataJobAdapter = DataJobAdapter(this@ProsesReceiveJobActivity, list)
-                        rvDataJob!!.adapter = DataJobAdapter
+
                     }
 //                    Log.e("TAG_ERROR", "${list}")
 //                    Log.e("view", "${dataSnapshot}")
                 }
+                DataJobAdapter = DataJobAdapter(this@ProsesReceiveJobActivity, list)
+                rvDataJob!!.adapter = DataJobAdapter
+                rvProses = findViewById(R.id.rvDataJob)
+                falldown = AnimationUtils.loadAnimation(this@ProsesReceiveJobActivity, R.anim.item_animation_fall_down)
+                rvProses.startAnimation(falldown)
 
             }
 

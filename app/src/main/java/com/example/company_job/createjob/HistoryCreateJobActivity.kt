@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.example.company_job.R
 import com.example.company_job.adapter.DataJobAdapter
 import com.example.company_job.data.SettingApi
@@ -19,6 +21,8 @@ class HistoryCreateJobActivity : AppCompatActivity() {
     private var actionBar: ActionBar? = null
     lateinit var dbref: DatabaseReference
     internal lateinit var set: SettingApi
+    lateinit var rvJob : RecyclerView
+    lateinit var falldown : Animation
     private var DataJobAdapter: DataJobAdapter? = null
     private var rvDataJob: RecyclerView? = null
     private var list: MutableList<JobModel> = ArrayList<JobModel>()
@@ -46,13 +50,17 @@ class HistoryCreateJobActivity : AppCompatActivity() {
                         addDataAll!!.getIsdone()!!.toLong().equals(1L)) {
                         addDataAll!!.setKey(dataSnapshot.key!!)
                         list.add(addDataAll)
-                        DataJobAdapter = DataJobAdapter(this@HistoryCreateJobActivity, list)
-                        rvDataJob!!.adapter = DataJobAdapter
+
                     }
 //                    Log.e("TAG_ERROR", "${list}")
 
-                    Log.e("view", "${dataSnapshot}")
+//                    Log.e("view", "${dataSnapshot}")
                 }
+                DataJobAdapter = DataJobAdapter(this@HistoryCreateJobActivity, list)
+                rvDataJob!!.adapter = DataJobAdapter
+                rvJob = findViewById(R.id.rvDataJob)
+                falldown = AnimationUtils.loadAnimation(this@HistoryCreateJobActivity, R.anim.item_animation_fall_down)
+                rvJob.startAnimation(falldown)
             }
 
             override fun onCancelled(p0: DatabaseError) {

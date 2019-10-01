@@ -6,12 +6,13 @@
     <LinearLayout
             android:layout_margin="23dp"
             android:orientation="vertical"
+            android:background="@drawable/bg_shadow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#778888"
+            android:background="#F3F3F3"
             android:orientation="horizontal"
             android:layout_gravity="center"
     >
@@ -30,24 +31,18 @@
                 android:text="Create Job"
                 android:textStyle="bold"
                 android:textSize="33sp"
-                android:textColor="#ffff"
                 android:gravity="center"
                 android:layout_gravity="center"
         />
     </LinearLayout>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="-25dp"
-            android:background="#676767"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-    </LinearLayout>
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+                android:background="#A09F9F">
+        </View>
     <LinearLayout
             android:id="@+id/id_createdjob"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@drawable/lengkung3"
             android:orientation="horizontal"
             android:layout_gravity="center">
         <ImageView
@@ -66,11 +61,14 @@
                 android:layout_gravity="center"
         />
     </LinearLayout>
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="#A09F9F">
+        </View>
     <LinearLayout
             android:id="@+id/ll_proses"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@drawable/lengkung3"
             android:orientation="horizontal"
             android:layout_gravity="center">
         <ImageView
@@ -89,11 +87,14 @@
                 android:layout_gravity="center"
         />
     </LinearLayout>
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="#A09F9F">
+        </View>
     <LinearLayout
             android:id="@+id/ll_history_create"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@drawable/lengkung3"
             android:orientation="horizontal"
             android:layout_gravity="center">
         <ImageView
