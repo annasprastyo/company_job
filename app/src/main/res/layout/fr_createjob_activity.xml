@@ -14,39 +14,60 @@
             android:layout_height="wrap_content"
             android:background="#F3F3F3"
             android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="center"
     >
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
         <ImageView
-                android:layout_width="108dp"
-                android:layout_height="150dp"
-                android:src="@drawable/createjob"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/createjob"
                 android:layout_marginStart="10dp"
                 android:paddingTop="35dp"
                 android:paddingBottom="35dp"
                 android:layout_gravity="center"
         />
+        </LinearLayout>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Job"
                 android:textStyle="bold"
-                android:textSize="33sp"
+                android:textSize="25sp"
                 android:gravity="center"
                 android:layout_gravity="center"
         />
     </LinearLayout>
-        <View android:layout_width="match_parent"
-              android:layout_height="1dp"
-                android:background="#A09F9F">
-        </View>
+      <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="#004EC5">
+            <TextView
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@android:color/white"
+                    android:padding="3dp"
+                    android:textStyle="bold"
+                    android:text="Buat Pekerjaan Dan Proses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+      </LinearLayout>
     <LinearLayout
             android:id="@+id/id_createdjob"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="horizontal"
+            android:background="@drawable/ripple_effect"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_gravity="center">
         <ImageView
-                android:layout_width="81dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/createjob"
                 android:paddingTop="15dp"
@@ -54,25 +75,42 @@
                 android:layout_marginStart="10dp"
         />
         <TextView
-                android:layout_width="142dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Job"
-                android:textSize="25sp"
+                android:textSize="18sp"
                 android:layout_gravity="center"
         />
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/arrow_right"/>
+        </RelativeLayout>
     </LinearLayout>
-        <View android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="#A09F9F">
-        </View>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#A2A2A2"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
+
+        </LinearLayout>
     <LinearLayout
             android:id="@+id/ll_proses"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ripple_effect"
             android:orientation="horizontal"
             android:layout_gravity="center">
         <ImageView
-                android:layout_width="81dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/folder"
                 android:paddingTop="15dp"
@@ -80,25 +118,50 @@
                 android:layout_marginStart="10dp"
         />
         <TextView
-                android:layout_width="142dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Proses"
-                android:textSize="25sp"
+                android:textSize="18sp"
                 android:layout_gravity="center"
         />
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/arrow_right"/>
+        </RelativeLayout>
     </LinearLayout>
-        <View android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="#A09F9F">
-        </View>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="#004EC5">
+            <TextView
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@android:color/white"
+                    android:padding="3dp"
+                    android:textStyle="bold"
+                    android:text="History Pekerjaaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
     <LinearLayout
             android:id="@+id/ll_history_create"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="horizontal"
+            android:background="@drawable/ripple_effect"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_gravity="center">
         <ImageView
-                android:layout_width="81dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/bookmark1"
                 android:paddingTop="15dp"
@@ -106,12 +169,30 @@
                 android:layout_marginStart="10dp"
         />
         <TextView
-                android:layout_width="142dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="History"
-                android:textSize="25sp"
+                android:textSize="18sp"
                 android:layout_gravity="center"
         />
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/arrow_right"/>
+        </RelativeLayout>
+    </LinearLayout><LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#A2A2A2"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
     </LinearLayout>
 </LinearLayout>
 </LinearLayout>

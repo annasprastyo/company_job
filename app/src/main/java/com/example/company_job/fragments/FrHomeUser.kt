@@ -1,12 +1,14 @@
 package com.example.company_job.fragments
 
 import android.os.Bundle
+import android.support.design.internal.BottomNavigationMenu
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.company_job.R
+import com.example.company_job.activity.MainActivity
 import com.example.company_job.activity.PrefsHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -16,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fr_homeuser_activity.*
 import kotlinx.android.synthetic.main.fr_homeuser_activity.view.*
 
-class FrHomeUser: Fragment() {
+class FrHomeUser(): Fragment() {
 
     lateinit var fAuth: FirebaseAuth
     lateinit var helperPrefs: PrefsHelper
@@ -41,6 +43,7 @@ class FrHomeUser: Fragment() {
         id_tunggu.visibility = View.VISIBLE
         getData()
 
+        val mainActivity = activity!! as MainActivity
 
         ll_CreateJob.setOnClickListener(({
             val frcreatejob = FrCreateJob()
@@ -49,6 +52,7 @@ class FrHomeUser: Fragment() {
                 R.anim.design_bottom_sheet_slide_in,
                 R.anim.design_bottom_sheet_slide_out
             ).replace(R.id.content, frcreatejob).commit()
+            mainActivity.setNavigation(R.id.navigation_create)
         }))
 
         ll_ReceiveJob.setOnClickListener(({
@@ -58,6 +62,7 @@ class FrHomeUser: Fragment() {
                 R.anim.design_bottom_sheet_slide_in,
                 R.anim.design_bottom_sheet_slide_out
             ).replace(R.id.content, frreceivejob).commit()
+            mainActivity.setNavigation(R.id.navigation_receive)
         }))
 
         ll_Profile.setOnClickListener(({
@@ -67,6 +72,7 @@ class FrHomeUser: Fragment() {
                 R.anim.design_bottom_sheet_slide_in,
                 R.anim.design_bottom_sheet_slide_out
             ).replace(R.id.content, frprofile).commit()
+            mainActivity.setNavigation(R.id.navigation_profile)
         }))
     }
 

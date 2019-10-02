@@ -64,6 +64,9 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun setNavigation(id : Int){
+        navigation.selectedItemId = id
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
