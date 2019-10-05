@@ -105,32 +105,27 @@ class SettingActivity: AppCompatActivity() {
                 nama_update.setText(p0.child("/nama").value.toString())
                 val adapter = ArrayAdapter.createFromResource(this@SettingActivity, R.array.list_Department, android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                department.setAdapter(adapter);
-                department.setSelection(adapter.getPosition(p0.child("/department").value.toString()))
                 kontak_update.setText(p0.child("/phone").value.toString())
-                email_update.setText(p0.child("/email").value.toString())
             }
         })
 
         btn_update.setOnClickListener {
             val uidUser = fAuth.currentUser?.uid
+            val user = fAuth.currentUser
 
             dbRef = FirebaseDatabase.getInstance().reference
             val update_nama = nama_update.text.toString()
-            val update_department = department.selectedItem.toString()
             val update_kontak = kontak_update.text.toString()
-            val update_email = email_update.text.toString()
 
-            if (update_department.isNotEmpty() && update_email.isNotEmpty() && update_nama.isNotEmpty()
-                && update_kontak.isNotEmpty()
+            if (update_nama.isNotEmpty() && update_kontak.isNotEmpty()
             ) {
+                    dbRef.child("users/$uidUser/nama").setValue(update_nama)
+                    dbRef.child("users/$uidUser/phone").setValue(update_kontak)
+                    Toast.makeText(this, "Sukses!!", Toast.LENGTH_SHORT).show()
+                    finish()
+
 //                Log.e("muncul", "${uidUser}")
-                dbRef.child("users/$uidUser/nama").setValue(update_nama)
-                dbRef.child("users/$uidUser/department").setValue(update_department)
-                dbRef.child("users/$uidUser/phone").setValue(update_kontak)
-                dbRef.child("users/$uidUser/email").setValue(update_email)
-                Toast.makeText(this, "Sukses!!", Toast.LENGTH_SHORT).show()
-                finish()
+
             } else {
                 Toast.makeText(this@SettingActivity, "Data Profil Harus Di Isi Semua!!", Toast.LENGTH_SHORT).show()
             }
@@ -157,8 +152,6 @@ class SettingActivity: AppCompatActivity() {
                         array.add(dataSnapshot.child("name").value.toString())
                     }
                 }
-
-                department.adapter = ArrayAdapter(this@SettingActivity, android.R.layout.simple_dropdown_item_1line, array)
 
             }
 

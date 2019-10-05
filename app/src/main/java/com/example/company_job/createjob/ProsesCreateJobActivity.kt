@@ -74,9 +74,6 @@ class ProsesCreateJobActivity : AppCompatActivity(){
 //        Toast.makeText(this, "${helperPrefs.getPilih()!!.toString()}", Toast.LENGTH_SHORT).show()
 
 
-        btn_selesai.setOnClickListener {
-           transactionDone(Id_job!!.toLong())
-        }
 
         add.setOnClickListener {
 //            content_add.visibility = View.VISIBLE
@@ -146,7 +143,6 @@ class ProsesCreateJobActivity : AppCompatActivity(){
                 }
                 nama_receive.text = p0.child("/nama").value.toString()
                 receive_department.text = p0.child("/department").value.toString()
-                receive_email.text = p0.child("/email").value.toString()
                 id_chat.setOnClickListener {
                     val friend = Friend("${p0.child("/userid").value.toString()}" , "${p0.child("nama").value.toString()}", "${p0.child("/foto").value.toString()}")
                     ChatDetailsActivity.navigate(this@ProsesCreateJobActivity ,it, friend)
@@ -174,10 +170,27 @@ class ProsesCreateJobActivity : AppCompatActivity(){
                 id_department.text = p0.child("/department").value.toString()
                 id_tanggal.text = p0.child("/dodate").value.toString()
                 id_deskripsi.text = p0.child("/deskripsi").value.toString()
+
+                if (p0.child("/isdone").value.toString().toLong() == 1L){
+                    if(helperPrefs.getPilih()!!.toString() == "historyc" || helperPrefs.getPilih()!!.toString() == "historyr"){
+
+                    }else{
+                        Toast.makeText(applicationContext,"Pekerjaan Selesai.",Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@ProsesCreateJobActivity, MainActivity::class.java))
+                    }
+                }else{
+
+                }
                 if (p0.child("/id_receive").value.toString() == "null"){
                     id_wait.visibility = View.VISIBLE
+                    btn_selesai.setOnClickListener {
+                        alertReceive()
+                    }
                 }else{
                     id_wait.visibility = View.GONE
+                    btn_selesai.setOnClickListener {
+                        transactionDone(Id_job!!.toLong())
+                    }
                     if (helperPrefs.getPilih()!!.toString() == "create") {
                         btn_selesai.visibility = View.VISIBLE
                         getDataReceive(p0.child("/id_receive").value.toString())
@@ -212,6 +225,21 @@ class ProsesCreateJobActivity : AppCompatActivity(){
             }
 
         })
+    }
+
+    fun alertReceive(){
+        val builder = AlertDialog.Builder(this@ProsesCreateJobActivity)
+        builder.setTitle("Penerima Belum Ada!!")
+        builder.setMessage("Pekerjaan tidak bisa di selesai apabila belum ada penerima!")
+//        builder.setNegativeButton("No"){dialog,which ->
+//            Toast.makeText(applicationContext,"You are not agree.",Toast.LENGTH_SHORT).show()
+//        }
+
+        builder.setNeutralButton("Tutup"){_,_ ->
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     fun getDataDetailJob(Id_job : Long){
@@ -280,7 +308,7 @@ class ProsesCreateJobActivity : AppCompatActivity(){
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         actionBar = supportActionBar
-        actionBar!!.setTitle("Proses Job")
+        actionBar!!.setTitle("Proses Pekerjaan")
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar!!.setHomeButtonEnabled(true)
     }

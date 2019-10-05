@@ -75,7 +75,7 @@ class HistoryCreateJobActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         actionBar = supportActionBar
-        actionBar!!.setTitle("Data History Create Job")
+        actionBar!!.setTitle("Data History Buat Pekerjaan")
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar!!.setHomeButtonEnabled(true)
     }

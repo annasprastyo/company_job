@@ -21,6 +21,9 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:id="@+id/btn_selesai"
+                android:layout_marginEnd="10dp"
+                android:textColor="@android:color/white"
+                android:background="@color/success"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Selesai"/>
@@ -113,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.6"
                         android:textStyle="bold"
-                        android:text="Department"
+                        android:text="Departemen"
                 />
                 <TextView
                         android:id="@+id/id_department"
@@ -132,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.6"
                         android:textStyle="bold"
-                        android:text="Date Line"
+                        android:text="Batas Waktu"
                 />
                 <TextView
                         android:id="@+id/id_tanggal"
@@ -239,11 +242,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Deparment "/>
-            <TextView
-                    android:id="@+id/receive_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email "/>
         </LinearLayout>
         <LinearLayout
                 android:layout_weight="1.4"

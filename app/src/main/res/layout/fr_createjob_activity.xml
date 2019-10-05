@@ -34,9 +34,9 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Job"
+                android:text="Buat Pekerjaan"
                 android:textStyle="bold"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:layout_gravity="center"
         />
@@ -77,7 +77,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Job"
+                android:text="Buat Pekerjaan"
                 android:textSize="18sp"
                 android:layout_gravity="center"
         />
@@ -171,7 +171,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="History"
+                android:text="Histori"
                 android:textSize="18sp"
                 android:layout_gravity="center"
         />

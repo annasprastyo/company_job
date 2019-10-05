@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.company_job.R
+import com.example.company_job.activity.PrefsHelper
+import com.example.company_job.data.SettingApi
 import com.example.company_job.model.DetailJobModel
 import com.google.firebase.database.*
 
@@ -15,6 +17,8 @@ class ProsesCreateJobAdapter: RecyclerView.Adapter<ProsesCreateJobAdapter.Prores
     lateinit var dbref: DatabaseReference
     lateinit var delete: DatabaseReference
     lateinit var mContext: Context
+    lateinit var helperPrefs: PrefsHelper
+    internal lateinit var set: SettingApi
     lateinit var itemMyorder: List<DetailJobModel>
 //    lateinit var listener : FirebaseDataListener
 
@@ -42,10 +46,22 @@ class ProsesCreateJobAdapter: RecyclerView.Adapter<ProsesCreateJobAdapter.Prores
         val id_job = jobModel.getId_job()!!.toLong()
         p0.id_deskripsi.text = jobModel.getDeskripsi()
 
+        helperPrefs = PrefsHelper(mContext)
+        set = SettingApi(mContext)
+
         if (jobModel.getIsdone().toString().equals("1")){
             p0.id_isdone.isChecked = true
         }else{
             p0.id_isdone.isChecked = false
+        }
+
+        if (helperPrefs.getPilih().toString().equals("create") || helperPrefs.getPilih().toString().equals("historyc")
+            || helperPrefs.getPilih().toString().equals("historyr")){
+            p0.ll_hapus.visibility = View.GONE
+            p0.id_isdone.isEnabled = false
+        }else{
+            p0.ll_hapus.visibility = View.VISIBLE
+            p0.id_isdone.isEnabled = true
         }
         p0.id_delete.setOnClickListener {
             delete = FirebaseDatabase.getInstance().getReference("DataDetailJob/")
@@ -83,11 +99,13 @@ class ProsesCreateJobAdapter: RecyclerView.Adapter<ProsesCreateJobAdapter.Prores
         var id_deskripsi : TextView
         var id_isdone : CheckBox
         var id_delete : ImageView
+        var ll_hapus : LinearLayout
         init {
             ll_DetailJob = itemview.findViewById(R.id.ll_DetailJob)
             id_deskripsi = itemview.findViewById(R.id.id_deskripsi)
             id_isdone = itemview.findViewById(R.id.id_isdone)
             id_delete = itemview.findViewById(R.id.id_delete)
+            ll_hapus = itemview.findViewById(R.id.ll_hapus)
         }
     }
 

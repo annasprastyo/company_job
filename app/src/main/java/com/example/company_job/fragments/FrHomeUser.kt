@@ -1,5 +1,6 @@
 package com.example.company_job.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationMenu
 import android.support.v4.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.company_job.R
+import com.example.company_job.activity.ChatActivity
 import com.example.company_job.activity.MainActivity
 import com.example.company_job.activity.PrefsHelper
 import com.google.firebase.auth.FirebaseAuth
@@ -37,11 +39,8 @@ class FrHomeUser(): Fragment() {
 
         fAuth = FirebaseAuth.getInstance()
         helperPrefs = PrefsHelper(activity!!)
-        Glide.with(view.context)
-            .load(R.drawable.avatar)
-            .into(view.avatar)
-        id_tunggu.visibility = View.VISIBLE
-        getData()
+//        id_tunggu.visibility = View.VISIBLE
+//        getData()
 
         val mainActivity = activity!! as MainActivity
 
@@ -74,32 +73,35 @@ class FrHomeUser(): Fragment() {
             ).replace(R.id.content, frprofile).commit()
             mainActivity.setNavigation(R.id.navigation_profile)
         }))
+        ll_Chat.setOnClickListener {
+            startActivity(Intent(activity!!, ChatActivity::class.java))
+        }
     }
 
-    fun getData(){
-        val dbRefUser = FirebaseDatabase.getInstance().getReference("users/${helperPrefs.getUID()}")
-        dbRefUser.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-//                Log.e("uid", helperPrefs.getUID())
-                if (p0.child("/foto").value.toString() != "null") {
-                    Glide.with(view!!.context)
-                        .load(p0.child("/foto").value.toString())
-                        .into(view!!.avatar)
-                }
-
-                view!!.id_nama.text = p0.child("/nama").value.toString()
-                view!!.id_department.text = p0.child("/department").value.toString()
-                view!!.id_kontak.text = p0.child("/phone").value.toString()
-                view!!.id_email.text = p0.child("/email").value.toString()
-
-                id_tunggu.visibility = View.GONE
-            }
-
-
-        })
-    }
+//    fun getData(){
+//        val dbRefUser = FirebaseDatabase.getInstance().getReference("users/${helperPrefs.getUID()}")
+//        dbRefUser.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onCancelled(p0: DatabaseError) {
+//
+//            }
+//
+//            override fun onDataChange(p0: DataSnapshot) {
+////                Log.e("uid", helperPrefs.getUID())
+//                if (p0.child("/foto").value.toString() != "null") {
+//                    Glide.with(view!!.context)
+//                        .load(p0.child("/foto").value.toString())
+//                        .into(view!!.avatar)
+//                }
+//
+//                view!!.id_nama.text = p0.child("/nama").value.toString()
+//                view!!.id_department.text = p0.child("/department").value.toString()
+//                view!!.id_kontak.text = p0.child("/phone").value.toString()
+//                view!!.id_email.text = p0.child("/email").value.toString()
+//
+////                id_tunggu.visibility = View.GONE
+//            }
+//
+//
+//        })
+//    }
 }

@@ -78,7 +78,7 @@ class ReceiveJobActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         actionBar = supportActionBar
-        actionBar!!.setTitle("Receive Job")
+        actionBar!!.setTitle("Terima Pekerjaan")
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar!!.setHomeButtonEnabled(true)
     }

@@ -79,7 +79,7 @@ class ProsesReceiveJobActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         actionBar = supportActionBar
-        actionBar!!.setTitle("Data Proses Receive Job")
+        actionBar!!.setTitle("Data Proses Terima pekerjaan")
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar!!.setHomeButtonEnabled(true)
     }

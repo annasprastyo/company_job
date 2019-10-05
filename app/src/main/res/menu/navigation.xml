@@ -9,13 +9,14 @@
     <item
             android:id="@+id/navigation_create"
             android:icon="@drawable/create"
-            android:title="Create Job" />
+            android:title="Buat Pekerjaaan" />
     <item
             android:id="@+id/navigation_receive"
             android:icon="@drawable/receive"
-            android:title="Receive Job" />
+            android:title="Terima Pekerjaan" />
     <item
             android:id="@+id/navigation_profile"
             android:icon="@drawable/profil"
             android:title="Profile" />
+
 </menu>

@@ -44,7 +44,7 @@ class DataCreateJobActivity: AppCompatActivity() {
 
     fun getDataDetailJob(){
         dbref = FirebaseDatabase.getInstance().getReference("DataJob/")
-        dbref.addListenerForSingleValueEvent(object : ValueEventListener {
+        dbref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 list = ArrayList<JobModel>()
                 for (dataSnapshot in p0.children) {
@@ -74,7 +74,7 @@ class DataCreateJobActivity: AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         actionBar = supportActionBar
-        actionBar!!.setTitle("Data Proses Create Job")
+        actionBar!!.setTitle("Data Proses Buat Pekerjaan")
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar!!.setHomeButtonEnabled(true)
     }

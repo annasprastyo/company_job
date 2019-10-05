@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
+import android.util.Log.e
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import com.example.company_job.data.SettingApi
 import com.example.company_job.model.JobModel
 import com.example.company_job.utilities.Const
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.dialog_ambil.view.*
 
 class DataJobAdapter: RecyclerView.Adapter<DataJobAdapter.DataJobViewHolder> {
 
@@ -66,7 +69,7 @@ class DataJobAdapter: RecyclerView.Adapter<DataJobAdapter.DataJobViewHolder> {
             p0.ll_status.setBackgroundColor(ContextCompat.getColor(mContext, R.color.biruDesain))
             p0.status.text = "Proses"
         }else {
-            p0.ll_status.setBackgroundColor(ContextCompat.getColor(mContext, R.color.black_soft))
+            p0.ll_status.setBackgroundColor(ContextCompat.getColor(mContext, R.color.success))
             p0.status.text = "Selesai"
         }
 
@@ -86,15 +89,58 @@ class DataJobAdapter: RecyclerView.Adapter<DataJobAdapter.DataJobViewHolder> {
         if (helperPrefs.getPilih().toString().equals("receive")){
             if (jobModel.getId_receive().toString().equals("null")){
                 p0.ll_status2.visibility = View.VISIBLE
-                p0.ll_status2.setOnClickListener {
-                    dbref = FirebaseDatabase.getInstance().getReference("DataJob/${jobModel.getId_job()!!.toLong()}")
-                    dbref.child("id_receive").setValue(set.readSetting(Const.PREF_MY_ID))
-                    Toast.makeText(mContext, "Job Di Ambil!!", Toast.LENGTH_SHORT).show()
+                p0.ll_datajob.setOnClickListener {
 
-                    var intent = Intent(mContext, ProsesCreateJobActivity::class.java)
-                    intent.putExtra("Id_job", jobModel.getId_job()!!.toLong())
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    mContext.applicationContext.startActivity(intent)
+                    val aDialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_ambil, null)
+                    //AlertDialogBuilder
+
+                    val mBuilder = AlertDialog.Builder(mContext)
+                        .setView(aDialogView)
+                        .setTitle("Ambil Pekerjaan?")
+                    //show dialog
+                    val  mAlertDialog = mBuilder.show()
+                    val dbRefUser = FirebaseDatabase.getInstance().getReference("DataJob/${jobModel.getId_job()!!.toLong()}")
+                    dbRefUser.addValueEventListener(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {
+
+                        }
+
+                        override fun onDataChange(p0: DataSnapshot) {
+
+                            Glide.with(mContext)
+                                .load(p0.child("/image").value.toString())
+                                .into(aDialogView.id_image)
+                            aDialogView.id_judul.text = p0.child("/judul").value.toString()
+                            aDialogView.id_nama.text = p0.child("/nama").value.toString()
+                            aDialogView.id_department.text = p0.child("/department").value.toString()
+                            aDialogView.id_tanggal.text = p0.child("/dodate").value.toString()
+                            aDialogView.id_deskripsi.text = p0.child("/deskripsi").value.toString()
+//                            e("TAHH", "${p0}")
+                        }
+
+                    })
+                    aDialogView.id_ambil.setOnClickListener {
+                        //            Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
+                        dbref = FirebaseDatabase.getInstance().getReference("DataJob/${jobModel.getId_job()!!.toLong()}")
+                        dbref.child("id_receive").setValue(set.readSetting(Const.PREF_MY_ID))
+
+                        var intent = Intent(mContext, ProsesCreateJobActivity::class.java)
+                        intent.putExtra("Id_job", jobModel.getId_job()!!.toLong())
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        mContext.applicationContext.startActivity(intent)
+                        Toast.makeText(mContext, "Job Di Ambil!!", Toast.LENGTH_SHORT).show()
+                    }
+
+                    aDialogView.id_batal.setOnClickListener {
+                    //                        Toast.makeText(mContext,"Kamu membatalkan penyelesaian.",Toast.LENGTH_SHORT).show()
+                        mAlertDialog.dismiss()
+                    }
+
+
+
+
+
+
                 }
             }else{
                 p0.ll_status.visibility = View.VISIBLE

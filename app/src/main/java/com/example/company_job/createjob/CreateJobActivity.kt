@@ -14,12 +14,19 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaRecorder.VideoSource.CAMERA
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
+import android.util.Log
+import android.util.Log.e
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.webkit.MimeTypeMap
 import android.widget.ArrayAdapter
@@ -34,6 +41,10 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_created_job.img_upload
+import kotlinx.android.synthetic.main.layout_permission.view.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 class CreateJobActivity : AppCompatActivity() {
@@ -103,31 +114,49 @@ class CreateJobActivity : AppCompatActivity() {
         stoRef = fstorage.reference
 
         img_upload.setOnClickListener {
-            when {
-                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) -> {
-                    if (ContextCompat.checkSelfPermission(
-                            this,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                        )
-                        != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        requestPermissions(
-                            arrayOf(
+            val aDialogView = LayoutInflater.from(this@CreateJobActivity).inflate(R.layout.layout_permission, null)
+            //AlertDialogBuilder
+            val mBuilder = AlertDialog.Builder(this@CreateJobActivity)
+                .setView(aDialogView)
+                .setTitle("Pilih Aksi")
+            //show dialog
+            val  mAlertDialog = mBuilder.show()
+
+            aDialogView.ll_camera.setOnClickListener {
+                    takePhotoFromCamera()
+                    mAlertDialog.dismiss()
+
+            }
+            aDialogView.ll_file_manager.setOnClickListener {
+                when {
+                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) -> {
+                        if (ContextCompat.checkSelfPermission(
+                                this,
                                 Manifest.permission.READ_EXTERNAL_STORAGE
-                            ),
-                            PERMISSION_REQUEST_CODE
-                        )
-                    } else {
+                            )
+                            != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            requestPermissions(
+                                arrayOf(
+                                    Manifest.permission.READ_EXTERNAL_STORAGE
+                                ),
+                                PERMISSION_REQUEST_CODE
+                            )
+                        } else {
+                            imageChooser()
+                        }
+                    }
+                    else -> {
                         imageChooser()
                     }
                 }
-                else -> {
-                    imageChooser()
-                }
+                mAlertDialog.dismiss()
+
             }
 
+
         }
-//        btn_buat.isEnabled = false
+
 
         btn_buat.setOnClickListener {
             if (Foto!!.toLong() == 0L) {
@@ -141,6 +170,11 @@ class CreateJobActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    fun takePhotoFromCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, CAMERA)
     }
 
     fun listDepartment(){
@@ -260,8 +294,56 @@ class CreateJobActivity : AppCompatActivity() {
                 }
 
             }
+            CAMERA ->
+            {
+                val thumbnail = data!!.extras!!.get("data") as Bitmap
+//                img_upload!!.setImageBitmap(thumbnail)
+//                saveImage(thumbnail)
+                Glide.with(this)
+                    .load(thumbnail)
+                    .into(img_upload)
+                filePath = Uri.fromFile(File(saveImage(thumbnail)))
+                Foto = 1
+//                Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
+    fun saveImage(myBitmap: Bitmap):String {
+        val bytes = ByteArrayOutputStream()
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+        val wallpaperDirectory = File(this.getFilesDir(),"mydir")
+        // have the object build the directory structure, if needed.
+        Log.e("fee",wallpaperDirectory.toString())
+        if (!wallpaperDirectory.exists())
+        {
+            wallpaperDirectory.mkdirs()
+        }
+
+        try
+        {
+            Log.d("heel",wallpaperDirectory.toString())
+            val f = File(wallpaperDirectory, ((Calendar.getInstance()
+                .getTimeInMillis()).toString() + ".jpg"))
+            e("path", f.path)
+            f.createNewFile()
+            val fo = FileOutputStream(f)
+            fo.write(bytes.toByteArray())
+            MediaScannerConnection.scanFile(this,
+                arrayOf(f.getPath()),
+                arrayOf("image/jpeg"), null)
+            fo.close()
+            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath())
+
+            return f.getAbsolutePath()
+        }
+        catch (e1: IOException) {
+            e("error", "saveImage", e1)
+        }
+
+        return ""
+    }
+
 
     fun GetFileExtension(uri: Uri): String? {
         val contentResolverz = this.contentResolver
@@ -308,7 +390,7 @@ class CreateJobActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         actionBar = supportActionBar
-        actionBar!!.setTitle("Create Job")
+        actionBar!!.setTitle("Buat Pekerjaan")
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar!!.setHomeButtonEnabled(true)
     }

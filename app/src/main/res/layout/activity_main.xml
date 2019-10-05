@@ -17,7 +17,44 @@
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+                android:id="@+id/ll_akun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="5dp"
+                android:layout_width="60dp"
+                android:id="@+id/avatar"
+                android:src="@drawable/avatar"
+                android:layout_height="60dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#008FF7"
+        />
+        <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/et_nama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"/>
+            <TextView
+                    android:id="@+id/et_departemen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deparetemen"
+                    android:layout_below="@id/et_nama"
+                    android:textColor="@android:color/black"
+            />
+        </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
             android:id="@+id/content"
