@@ -51,7 +51,7 @@ class ProsesReceiveJobActivity : AppCompatActivity() {
                 for (dataSnapshot in p0.children) {
                     val addDataAll = dataSnapshot.getValue(JobModel::class.java)
                     if (addDataAll!!.getId_receive() == helperPrefs.getUID()!!.toString() &&
-                        addDataAll!!.getIsdone()!!.toLong().equals(0L)) {
+                        addDataAll!!.getIsdone() == 0L) {
 //                        addDataAll!!.setKey(dataSnapshot.key!!)
                         list.add(addDataAll)
 

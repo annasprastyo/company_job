@@ -22,9 +22,6 @@ import kotlinx.android.synthetic.main.fr_homeuser_activity.view.*
 
 class FrHomeUser(): Fragment() {
 
-    lateinit var fAuth: FirebaseAuth
-    lateinit var helperPrefs: PrefsHelper
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,10 +34,6 @@ class FrHomeUser(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fAuth = FirebaseAuth.getInstance()
-        helperPrefs = PrefsHelper(activity!!)
-//        id_tunggu.visibility = View.VISIBLE
-//        getData()
 
         val mainActivity = activity!! as MainActivity
 
@@ -78,30 +71,4 @@ class FrHomeUser(): Fragment() {
         }
     }
 
-//    fun getData(){
-//        val dbRefUser = FirebaseDatabase.getInstance().getReference("users/${helperPrefs.getUID()}")
-//        dbRefUser.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onCancelled(p0: DatabaseError) {
-//
-//            }
-//
-//            override fun onDataChange(p0: DataSnapshot) {
-////                Log.e("uid", helperPrefs.getUID())
-//                if (p0.child("/foto").value.toString() != "null") {
-//                    Glide.with(view!!.context)
-//                        .load(p0.child("/foto").value.toString())
-//                        .into(view!!.avatar)
-//                }
-//
-//                view!!.id_nama.text = p0.child("/nama").value.toString()
-//                view!!.id_department.text = p0.child("/department").value.toString()
-//                view!!.id_kontak.text = p0.child("/phone").value.toString()
-//                view!!.id_email.text = p0.child("/email").value.toString()
-//
-////                id_tunggu.visibility = View.GONE
-//            }
-//
-//
-//        })
-//    }
 }

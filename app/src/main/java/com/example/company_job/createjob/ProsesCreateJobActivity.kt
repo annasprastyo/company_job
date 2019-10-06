@@ -3,6 +3,7 @@ package com.example.company_job.createjob
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.util.Log.e
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -55,6 +57,7 @@ class ProsesCreateJobActivity : AppCompatActivity(){
         set = SettingApi(this)
         helperPrefs = PrefsHelper(this)
         Id_job = intent.getLongExtra("Id_job",0)
+        e("wwwwww", "${Id_job!!.toLong()}")
         rvDetailJob = findViewById(R.id.rvDetailJob)
         rvDetailJob!!.layoutManager = LinearLayoutManager(this)
         rvDetailJob!!.setHasFixedSize(true)
@@ -111,14 +114,9 @@ class ProsesCreateJobActivity : AppCompatActivity(){
         builder.setPositiveButton("YES"){dialog, which ->
 //            Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
             dbref = FirebaseDatabase.getInstance().getReference("DataJob/${id_job}")
-            dbref.child("/isdone").setValue(1)
-            Toast.makeText(this, "Pekerjaan Telah di Selesaikan", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this@ProsesCreateJobActivity, MainActivity::class.java))
+            dbref.child("isdone").setValue(1L)
+            Toast.makeText(this@ProsesCreateJobActivity, "Pekerjaan Telah di Selesaikan", Toast.LENGTH_SHORT).show()
         }
-
-//        builder.setNegativeButton("No"){dialog,which ->
-//            Toast.makeText(applicationContext,"You are not agree.",Toast.LENGTH_SHORT).show()
-//        }
 
         builder.setNeutralButton("Cancel"){_,_ ->
             Toast.makeText(applicationContext,"Kamu membatalkan penyelesaian.",Toast.LENGTH_SHORT).show()
@@ -136,10 +134,12 @@ class ProsesCreateJobActivity : AppCompatActivity(){
             }
 
             override fun onDataChange(p0: DataSnapshot) {
+                if (!this@ProsesCreateJobActivity.isFinishing()) {
                 if (p0.child("/foto").value.toString() != "null") {
                     Glide.with(this@ProsesCreateJobActivity)
                         .load(p0.child("/foto").value.toString())
                         .into(avatar)
+                }
                 }
                 nama_receive.text = p0.child("/nama").value.toString()
                 receive_department.text = p0.child("/department").value.toString()
@@ -161,16 +161,17 @@ class ProsesCreateJobActivity : AppCompatActivity(){
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-
-                Glide.with(this@ProsesCreateJobActivity)
-                    .load(p0.child("/image").value.toString())
-                    .into(id_image)
+                if (!this@ProsesCreateJobActivity.isFinishing()) {
+                    Glide.with(this@ProsesCreateJobActivity)
+                        .load(p0.child("/image").value.toString())
+                        .into(id_image)
+                }
                 id_judul.text = p0.child("/judul").value.toString()
                 id_nama.text = p0.child("/nama").value.toString()
                 id_department.text = p0.child("/department").value.toString()
                 id_tanggal.text = p0.child("/dodate").value.toString()
                 id_deskripsi.text = p0.child("/deskripsi").value.toString()
-
+                e("isdone", "${p0.child("/isdone").value.toString()}")
                 if (p0.child("/isdone").value.toString().toLong() == 1L){
                     if(helperPrefs.getPilih()!!.toString() == "historyc" || helperPrefs.getPilih()!!.toString() == "historyr"){
 
@@ -189,7 +190,7 @@ class ProsesCreateJobActivity : AppCompatActivity(){
                 }else{
                     id_wait.visibility = View.GONE
                     btn_selesai.setOnClickListener {
-                        transactionDone(Id_job!!.toLong())
+                        transactionDone(Id_job)
                     }
                     if (helperPrefs.getPilih()!!.toString() == "create") {
                         btn_selesai.visibility = View.VISIBLE

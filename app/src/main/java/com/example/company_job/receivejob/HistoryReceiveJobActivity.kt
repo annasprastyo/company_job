@@ -49,7 +49,7 @@ class HistoryReceiveJobActivity: AppCompatActivity() {
                 for (dataSnapshot in p0.children) {
                     val addDataAll = dataSnapshot.getValue(JobModel::class.java)
                     if (addDataAll!!.getId_receive() == helperPrefs.getUID()!!.toString() &&
-                        addDataAll!!.getIsdone()!!.toLong().equals(1L)) {
+                        addDataAll!!.getIsdone() == 1L) {
                         addDataAll!!.setKey(dataSnapshot.key!!)
                         list.add(addDataAll)
 

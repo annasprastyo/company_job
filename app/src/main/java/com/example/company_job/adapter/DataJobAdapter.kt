@@ -115,26 +115,30 @@ class DataJobAdapter: RecyclerView.Adapter<DataJobAdapter.DataJobViewHolder> {
                             aDialogView.id_department.text = p0.child("/department").value.toString()
                             aDialogView.id_tanggal.text = p0.child("/dodate").value.toString()
                             aDialogView.id_deskripsi.text = p0.child("/deskripsi").value.toString()
+
+                            aDialogView.id_ambil.setOnClickListener {
+                                //            Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
+                                dbref = FirebaseDatabase.getInstance().getReference("DataJob/${jobModel.getId_job()!!.toLong()}")
+                                dbref.child("id_receive").setValue(set.readSetting(Const.PREF_MY_ID))
+
+                                var intent = Intent(mContext!!, ProsesCreateJobActivity::class.java)
+                                intent.putExtra("Id_job", jobModel.getId_job()!!.toLong())
+                                e("Id_job", "${jobModel.getId_job()!!.toLong()}")
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                mContext.applicationContext.startActivity(intent)
+                                Toast.makeText(mContext, "Job Di Ambil!!", Toast.LENGTH_SHORT).show()
+                                mAlertDialog.dismiss()
+                            }
+
+                            aDialogView.id_batal.setOnClickListener {
+                                //                        Toast.makeText(mContext,"Kamu membatalkan penyelesaian.",Toast.LENGTH_SHORT).show()
+                                mAlertDialog.dismiss()
+                            }
 //                            e("TAHH", "${p0}")
                         }
 
                     })
-                    aDialogView.id_ambil.setOnClickListener {
-                        //            Toast.makeText(applicationContext,"Ok, we change the app background.",Toast.LENGTH_SHORT).show()
-                        dbref = FirebaseDatabase.getInstance().getReference("DataJob/${jobModel.getId_job()!!.toLong()}")
-                        dbref.child("id_receive").setValue(set.readSetting(Const.PREF_MY_ID))
 
-                        var intent = Intent(mContext, ProsesCreateJobActivity::class.java)
-                        intent.putExtra("Id_job", jobModel.getId_job()!!.toLong())
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        mContext.applicationContext.startActivity(intent)
-                        Toast.makeText(mContext, "Job Di Ambil!!", Toast.LENGTH_SHORT).show()
-                    }
-
-                    aDialogView.id_batal.setOnClickListener {
-                    //                        Toast.makeText(mContext,"Kamu membatalkan penyelesaian.",Toast.LENGTH_SHORT).show()
-                        mAlertDialog.dismiss()
-                    }
 
 
 

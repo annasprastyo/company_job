@@ -20,6 +20,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AlertDialog
@@ -68,6 +69,7 @@ class CreateJobActivity : AppCompatActivity() {
     val PERMISSION_REQUEST_CODE = 10003
     var value = 0.0
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_created_job)
@@ -123,7 +125,17 @@ class CreateJobActivity : AppCompatActivity() {
             val  mAlertDialog = mBuilder.show()
 
             aDialogView.ll_camera.setOnClickListener {
+
+                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_DENIED) {
+                    requestPermissions(
+                        arrayOf(
+                            android.Manifest.permission.CAMERA
+                        ), CAMERA
+                    )
+                }else{
                     takePhotoFromCamera()
+                }
                     mAlertDialog.dismiss()
 
             }
@@ -175,6 +187,7 @@ class CreateJobActivity : AppCompatActivity() {
     fun takePhotoFromCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, CAMERA)
+
     }
 
     fun listDepartment(){

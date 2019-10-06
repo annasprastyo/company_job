@@ -94,7 +94,7 @@ class JobModel {
     }
 
     fun getIsdone(): Long? {
-        return isdone!!
+        return isdone
     }
 
     fun setIsdone(isdone: Long) {

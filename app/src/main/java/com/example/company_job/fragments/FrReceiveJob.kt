@@ -20,8 +20,7 @@ import kotlinx.android.synthetic.main.fr_receivejob_activity.*
 class FrReceiveJob: Fragment() {
 
     lateinit var helperPrefs : PrefsHelper
-    private var list: MutableList<JobModel> = ArrayList<JobModel>()
-    lateinit var dbRef: DatabaseReference
+//    private var list: MutableList<JobModel> = ArrayList<JobModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +34,6 @@ class FrReceiveJob: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        count_receive
-//        count_data()
         helperPrefs = PrefsHelper(activity!!)
         ll_ReceiveJob.setOnClickListener {
             startActivity(Intent(activity!!, ReceiveJobActivity::class.java))
@@ -52,33 +49,5 @@ class FrReceiveJob: Fragment() {
         }
     }
 
-//    fun count_data(){
-//        dbRef = FirebaseDatabase.getInstance().getReference("DataJob/")
-//        dbRef.addValueEventListener(object : ValueEventListener {
-//            override fun onCancelled(p0: DatabaseError) {
-//                Toast.makeText(activity!!, "gak kenek", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onDataChange(p0: DataSnapshot) {
-//                list = ArrayList<JobModel>()
-//
-//                for(dataSnapshot in p0.children){
-//                    val addDataAll = dataSnapshot.getValue(JobModel::class.java)
-//                    if (addDataAll!!.getDepartment() == helperPrefs.getDepartment()!!.toString() &&
-//                        addDataAll.getId_receive() == "null") {
-//                        addDataAll!!.setKey(dataSnapshot.key!!)
-//                        list.add(addDataAll)
-//                    }
-//                }
-////                Toast.makeText(activity!!, "${list.size}", Toast.LENGTH_SHORT).show()
-//                if(list.size.equals(0)){
-//                    count_receive.visibility = View.GONE
-//                }else{
-//                    count_receive.text = "+"+list.size
-//                }
-////                e("coco","${list.size}")
-//            }
-//
-//        })
-//    }
+
 }
